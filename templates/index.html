@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digit Recognizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            text-align: center;
+            padding-top: 50px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: #ffffffcc;
+            display: inline-block;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            margin: 10px 10px 0 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button {
+            background-color: #f44336;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        #prediction-result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a237e;
+        }
+    </style>
+
+    <script>
+        function resetForm() {
+            document.getElementById("digit-form").reset();
+            document.getElementById("prediction-result").innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <h1>Upload a Handwritten Digit Image</h1>
+    <form id="digit-form" action="/predict" method="post" enctype="multipart/form-data" autocomplete="off">
+        <input type="file" name="image" accept="image/*" required><br>
+        <input type="submit" value="Predict">
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+
+    {% if prediction is defined %}
+        <h2 id="prediction-result">Predicted Digit: {{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>
